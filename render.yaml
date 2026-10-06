@@ -4,33 +4,39 @@ services:
     runtime: docker
     plan: free
     region: oregon
-    # If your Git repo root is d:\Projects\onesapro (with backend/ and frontend/),
-    # Render must build from the backend directory instead of the parent repo root.
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+
     envVars:
-      - key: PORT
-        value: 8080
       - key: JAVA_VERSION
         value: 17
+
       - key: SPRING_PROFILES_ACTIVE
         value: production
+
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: employee-db
           property: connectionString
+
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: employee-db
           property: user
+
       - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
           name: employee-db
           property: password
+
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
+
       - key: SPRING_JPA_OPEN_IN_VIEW
         value: "false"
+
       - key: SPRING_JPA_SHOW_SQL
         value: "false"
 
