@@ -25,8 +25,8 @@ public class Employee {
     @Column(name = "date_of_join", nullable = false)
     private LocalDate dateOfJoin;
 
-    @Column(name = "is_manager", nullable = false)
-    private boolean manager;
+    @Column(name = "is_manager", nullable = false, columnDefinition = "tinyint(4) default 0")
+    private Byte manager;
 
     public Long getId() { return id; }
     public Designation getDesignation() { return designation; }
@@ -37,6 +37,8 @@ public class Employee {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public LocalDate getDateOfJoin() { return dateOfJoin; }
     public void setDateOfJoin(LocalDate dateOfJoin) { this.dateOfJoin = dateOfJoin; }
-    public boolean isManager() { return manager; }
-    public void setManager(boolean manager) { this.manager = manager; }
+    public Byte getManager() { return manager; }
+    public void setManager(Byte manager) { this.manager = manager; }
+    public boolean isManager() { return manager != null && manager != 0; }
+    public void setManager(boolean manager) { this.manager = (byte) (manager ? 1 : 0); }
 }

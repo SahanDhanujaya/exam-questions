@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: onesapro-backend
+    runtime: java
+    plan: free
+    region: oregon
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/employee-0.0.1-SNAPSHOT.jar --server.port=$PORT
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: JAVA_VERSION
+        value: 17
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: employee-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: employee-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: employee-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_OPEN_IN_VIEW
+        value: "false"
+      - key: SPRING_JPA_SHOW_SQL
+        value: "false"
+
+databases:
+  - name: employee-db
+    databaseName: employee_db
+    user: employee
+    plan: free
