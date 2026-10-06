@@ -4,8 +4,10 @@ services:
     runtime: docker
     plan: free
     region: oregon
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
+    # If your Git repo root is d:\Projects\onesapro (with backend/ and frontend/),
+    # Render must build from the backend directory instead of the parent repo root.
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     envVars:
       - key: PORT
         value: 8080
